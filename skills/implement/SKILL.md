@@ -23,8 +23,9 @@ If the plan doesn't name files, estimate from the phases; do not explore to find
 4. Tell each subagent to return ONLY a confirmation or the error output. Do not read those files in the main thread.
 
 ### Small: sequential
-1. Edit sequentially in the main thread. Read only the line ranges you need.
-2. After each independent phase, if context has grown noticeably, tell the user to run `/compact` before continuing (the model cannot invoke it itself).
+1. Before editing, write the plan verbatim to `plan.md` in the scratchpad directory (else `$TMPDIR`) as a `- [ ]` checklist, one item per phase. Compaction is lossy; this file is the source of truth.
+2. Edit sequentially in the main thread. Read only the line ranges you need. Tick the item in `plan.md` when a phase is done.
+3. After each independent phase, if context has grown noticeably, tell the user to run `/compact` before continuing (the model cannot invoke it itself). After any compaction, re-read `plan.md` and resume from the first unticked item.
 
 ## 3. Deferred validation
 - Never run the full test suite after a minor edit, and never run it more than once per batch. Prefer targeted test paths over the whole suite.
