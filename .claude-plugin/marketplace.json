@@ -1,0 +1,11 @@
+{
+  "name": "frugal-skills",
+  "owner": { "name": "H3mul" },
+  "plugins": [
+    {
+      "name": "frugal-skills",
+      "source": "./",
+      "description": "Token-saving skills that make Claude analytical, mindful and frugal instead of burning tokens at peak throughput."
+    }
+  ]
+}
