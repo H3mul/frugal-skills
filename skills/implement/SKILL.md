@@ -11,14 +11,14 @@ Before ANY tool call (no Read, no grep, no exploring), count distinct files to m
 
 If the plan doesn't name files, estimate from the phases; do not explore to find out. Skipping this line is a failure of the skill.
 
-- **Large**: more than 3 independent files OR more than 4 phases.
+- **Large**: more than 5 independent files OR more than 5 phases.
 - **Small**: otherwise.
 
 ## 2. Route
 
 ### Large: context isolation
-1. Split the plan into independent, parallelizable file blocks.
-2. Spawn one `haiku` subagent (Agent tool, `model: "haiku"`) per block, all in a single message. Give each the exact edits, the file path, and a targeted check (e.g. `eslint path/to/file`).
+1. Split the plan into independent, parallelizable blocks. Group related files into one block; spawn at most 3 subagents (each costs ~30-45k tokens of startup context).
+2. Spawn one subagent (Agent tool, `model: "haiku"`; the tool accepts only this alias, so the Haiku version can't be pinned) per block, all in a single message. Give each the exact edits, the file path, and a targeted check (e.g. `eslint path/to/file`).
 3. The main thread must NOT read or grep source files in this mode; exploration happens inside subagents.
 4. Tell each subagent to return ONLY a confirmation or the error output. Do not read those files in the main thread.
 
