@@ -7,6 +7,7 @@ Claude Code plugin: skills that push Claude to be analytical and frugal with tok
 | Command | What it does |
 |---|---|
 | `/frugal-skills:implement` | Runs a prepared plan cheaply: Haiku subagents for large plans, sequential edits for small ones, tests batched at the end of each phase. |
+| `/frugal-skills:zerg-implement` | Swarm execution: the session model orchestrates Haiku subagents, each making one atomic edit with minimal context. Best for large, mechanical, mostly independent changes. |
 
 ## Install
 
